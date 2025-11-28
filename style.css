@@ -20,7 +20,7 @@
 }
 body {
   min-height: 100%;
-  background-color: var(--neutral-800);
+  background-color: var(--neutral-900);
   padding: 2rem 5rem;
 }
 nav {
@@ -54,7 +54,8 @@ aside {
   grid-row: 1/9;
   border-radius: 1rem;
   overflow: hidden;
-  background-color: var(--neutral-600);
+  background-color: var(--neutral-700);
+  padding: 1rem;
 }
 #weatherMain {
   background-image: url("/assets/images/bg-today-large.svg");
@@ -66,4 +67,62 @@ aside {
 }
 #dailyForecast {
   grid-row: 3/4;
+}
+#dailyForecast > div {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(7, 1fr);
+}
+#dailyForecast > h4 {
+  margin: 10px 0;
+}
+.daily-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+.daily-card > .icon {
+  width: 90%;
+}
+.icon > img {
+  width: 100%;
+}
+.range {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.range > .max {
+  font-size: 0.9rem;
+}
+.range > .min {
+  color: var(--neutral-300);
+}
+.card {
+  background-color: var(--neutral-700);
+  border-radius: 1rem;
+  border: 1px solid var(--neutral-600);
+}
+.hour-card {
+  background-color: var(--neutral-600);
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.hour {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+.hour > img {
+  height: 40px;
+}
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
