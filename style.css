@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+:root {
+  --neutral-900: hsl(243, 96%, 9%);
+  --neutral-800: hsl(243, 27%, 20%);
+  --neutral-700: hsl(243, 23%, 24%);
+  --neutral-600: hsl(243, 23%, 30%);
+  --neutral-300: hsl(240, 6%, 70%);
+  --neutral-200: hsl(250, 6%, 84%);
+  --neutral-0: hsl(0, 0%, 100%);
+  --orange-500: hsl(28, 100%, 52%);
+  --blue-500: hsl(233, 67%, 56%);
+  --blue-700: hsl(248, 70%, 36%);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM Sans", sans-serif;
+  color: var(--neutral-0);
+}
+body {
+  min-height: 100%;
+  background-color: var(--neutral-800);
+  padding: 2rem 5rem;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+main {
+  text-align: center;
+  margin: 2rem;
+  margin-top: 3rem;
+}
+main > h1 {
+  font-family: "Bricolage Grotesque", serif;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+#container {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 4fr 2fr 3fr;
+  gap: 1rem;
+}
+section {
+  grid-column: 1;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+aside {
+  grid-column: 2;
+  grid-row: 1/9;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: var(--neutral-600);
+}
+#weatherMain {
+  background-image: url("/assets/images/bg-today-large.svg");
+  background-size: cover;
+  grid-row: 1/2;
+}
+#weatherDetails {
+  grid-row: 2/3;
+}
+#dailyForecast {
+  grid-row: 3/4;
+}

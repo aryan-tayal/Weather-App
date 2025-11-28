@@ -11,7 +11,7 @@
       sizes="32x32"
       href="./assets/images/logo-small.png"
     />
-
+    <link rel="stylesheet" href="style.css" />
     <title>Weather Now</title>
   </head>
   <body>
@@ -31,152 +31,154 @@
         </button>
       </form>
     </main>
-    <section id="weatherMain">
-      <div>
-        <h3 id="location">Berlin, Germany</h3>
-        <span id="time">Tuesday, Nov 28, 2025</span>
-      </div>
-    </section>
-    <section id="weatherDetails">
-      <div class="detail-card card">
-        <span class="category">Feels Like</span><span class="value">18</span>
-      </div>
-      <div class="detail-card card">
-        <span class="category">Humidity</span><span class="value">46%</span>
-      </div>
-      <div class="detail-card card">
-        <span class="category">Wind</span><span class="value">14 km/h</span>
-      </div>
-      <div class="detail-card card">
-        <span class="category">Precipitation</span
-        ><span class="value">0 mm</span>
-      </div>
-    </section>
-    <section id="dailyForecast">
-      <h4>Daily Forecast</h4>
-      <div>
-        <div class="card daily-card">
-          <span class="day">Tue</span>
-          <div class="icon">
-            <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
+    <div id="container">
+      <section id="weatherMain">
+        <div>
+          <h3 id="location">Berlin, Germany</h3>
+          <span id="time">Tuesday, Nov 28, 2025</span>
+        </div>
+      </section>
+      <section id="weatherDetails">
+        <div class="detail-card card">
+          <span class="category">Feels Like</span><span class="value">18</span>
+        </div>
+        <div class="detail-card card">
+          <span class="category">Humidity</span><span class="value">46%</span>
+        </div>
+        <div class="detail-card card">
+          <span class="category">Wind</span><span class="value">14 km/h</span>
+        </div>
+        <div class="detail-card card">
+          <span class="category">Precipitation</span
+          ><span class="value">0 mm</span>
+        </div>
+      </section>
+      <section id="dailyForecast">
+        <h4>Daily Forecast</h4>
+        <div>
+          <div class="card daily-card">
+            <span class="day">Tue</span>
+            <div class="icon">
+              <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
+            </div>
+            <div class="range">
+              <span class="max">22</span><span class="min">15</span>
+            </div>
           </div>
-          <div class="range">
-            <span class="max">22</span><span class="min">15</span>
+          <div class="card daily-card">
+            <span class="day">Wed</span>
+            <div class="icon">
+              <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
+            </div>
+            <div class="range">
+              <span class="max">21</span><span class="min">15</span>
+            </div>
+          </div>
+          <div class="card daily-card">
+            <span class="day">Thur</span>
+            <div class="icon">
+              <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
+            </div>
+            <div class="range">
+              <span class="max">20</span><span class="min">14</span>
+            </div>
+          </div>
+          <div class="card daily-card">
+            <span class="day">Fri</span>
+            <div class="icon">
+              <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
+            </div>
+            <div class="range">
+              <span class="max">20</span><span class="min">19</span>
+            </div>
+          </div>
+          <div class="card daily-card">
+            <span class="day">Sat</span>
+            <div class="icon">
+              <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
+            </div>
+            <div class="range">
+              <span class="max">32</span><span class="min">12</span>
+            </div>
+          </div>
+          <div class="card daily-card">
+            <span class="day">Sun</span>
+            <div class="icon">
+              <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
+            </div>
+            <div class="range">
+              <span class="max">22</span><span class="min">10</span>
+            </div>
+          </div>
+          <div class="card daily-card">
+            <span class="day">Mon</span>
+            <div class="icon">
+              <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
+            </div>
+            <div class="range">
+              <span class="max">30</span><span class="min">20</span>
+            </div>
           </div>
         </div>
-        <div class="card daily-card">
-          <span class="day">Wed</span>
-          <div class="icon">
-            <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
-          </div>
-          <div class="range">
-            <span class="max">21</span><span class="min">15</span>
-          </div>
+      </section>
+      <aside>
+        <div>
+          <h4>Hourly Forecase</h4>
+          <select id="day" name="daySelected" class="dropdown">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </select>
         </div>
-        <div class="card daily-card">
-          <span class="day">Thur</span>
-          <div class="icon">
-            <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
-          </div>
-          <div class="range">
-            <span class="max">20</span><span class="min">14</span>
-          </div>
+        <div class="card hour-card">
+          <span class="hour"
+            ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />3
+            PM</span
+          ><span class="hour-temp">20</span>
         </div>
-        <div class="card daily-card">
-          <span class="day">Fri</span>
-          <div class="icon">
-            <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
-          </div>
-          <div class="range">
-            <span class="max">20</span><span class="min">19</span>
-          </div>
+        <div class="card hour-card">
+          <span class="hour"
+            ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />4
+            PM</span
+          ><span class="hour-temp">19</span>
         </div>
-        <div class="card daily-card">
-          <span class="day">Sat</span>
-          <div class="icon">
-            <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
-          </div>
-          <div class="range">
-            <span class="max">32</span><span class="min">12</span>
-          </div>
+        <div class="card hour-card">
+          <span class="hour"
+            ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />5
+            PM</span
+          ><span class="hour-temp">20</span>
         </div>
-        <div class="card daily-card">
-          <span class="day">Sun</span>
-          <div class="icon">
-            <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
-          </div>
-          <div class="range">
-            <span class="max">22</span><span class="min">10</span>
-          </div>
+        <div class="card hour-card">
+          <span class="hour"
+            ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />6
+            PM</span
+          ><span class="hour-temp">18</span>
         </div>
-        <div class="card daily-card">
-          <span class="day">Mon</span>
-          <div class="icon">
-            <img src="./assets/images/icon-fog.webp" alt="Weather Icon" />
-          </div>
-          <div class="range">
-            <span class="max">30</span><span class="min">20</span>
-          </div>
+        <div class="card hour-card">
+          <span class="hour"
+            ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />7
+            PM</span
+          ><span class="hour-temp">17</span>
         </div>
-      </div>
-    </section>
-    <aside>
-      <div>
-        <h4>Hourly Forecase</h4>
-        <select id="day" name="daySelected" class="dropdown">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select>
-      </div>
-      <div class="card hour-card">
-        <span class="hour"
-          ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />3
-          PM</span
-        ><span class="hour-temp">20</span>
-      </div>
-      <div class="card hour-card">
-        <span class="hour"
-          ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />4
-          PM</span
-        ><span class="hour-temp">19</span>
-      </div>
-      <div class="card hour-card">
-        <span class="hour"
-          ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />5
-          PM</span
-        ><span class="hour-temp">20</span>
-      </div>
-      <div class="card hour-card">
-        <span class="hour"
-          ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />6
-          PM</span
-        ><span class="hour-temp">18</span>
-      </div>
-      <div class="card hour-card">
-        <span class="hour"
-          ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />7
-          PM</span
-        ><span class="hour-temp">17</span>
-      </div>
-      <div class="card hour-card">
-        <span class="hour"
-          ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />8
-          PM</span
-        ><span class="hour-temp">16</span>
-      </div>
-      <div class="card hour-card">
-        <span class="hour"
-          ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />9
-          PM</span
-        ><span class="hour-temp">14</span>
-      </div>
-      <div class="card hour-card">
-        <span class="hour"
-          ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />10
-          PM</span
-        ><span class="hour-temp">12</span>
-      </div>
-    </aside>
+        <div class="card hour-card">
+          <span class="hour"
+            ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />8
+            PM</span
+          ><span class="hour-temp">16</span>
+        </div>
+        <div class="card hour-card">
+          <span class="hour"
+            ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />9
+            PM</span
+          ><span class="hour-temp">14</span>
+        </div>
+        <div class="card hour-card">
+          <span class="hour"
+            ><img src="/assets/images/icon-rain.webp" alt="Weather Icon" />10
+            PM</span
+          ><span class="hour-temp">12</span>
+        </div>
+      </aside>
+    </div>
   </body>
 </html>
