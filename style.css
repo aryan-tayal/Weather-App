@@ -83,6 +83,7 @@ aside {
 }
 #dailyForecast > h4 {
   margin: 10px 0;
+  font-size: 1.2rem;
 }
 .daily-card {
   width: 100%;
@@ -119,7 +120,7 @@ aside {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 5px 10px;
 }
 .hour {
   display: flex;
@@ -133,6 +134,10 @@ aside {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+}
+#header > h4 {
+  font-size: 1.2rem;
 }
 #weatherDetails {
   display: grid;
