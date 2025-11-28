@@ -153,3 +153,26 @@ aside {
   font-size: 2rem;
   font-weight: light;
 }
+#weatherMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+#weatherMain #location {
+  font-size: 1.7rem;
+  margin-bottom: 10px;
+}
+#weatherMain #currentTemp {
+  display: flex;
+  align-items: center;
+}
+#weatherMain #currentTemp > img {
+  height: 200px;
+}
+#weatherMain #currentTemp > h2 {
+  font-family: "Bricolage Grotesque", serif;
+  font-size: 4rem;
+  font-style: italic;
+  margin-right: 2rem;
+}
