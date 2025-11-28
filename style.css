@@ -126,3 +126,22 @@ aside {
   justify-content: space-between;
   align-items: center;
 }
+#weatherDetails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.detail-card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.detail-card > .category {
+  color: var(--neutral-300);
+  font-size: 1.1rem;
+}
+.detail-card > .value {
+  font-size: 2rem;
+  font-weight: light;
+}
