@@ -1,5 +1,8 @@
+const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+
 const weatherData = {
   current: {},
+  daily: [],
 };
 const getData = async () => {
   const res = await fetch(
@@ -7,7 +10,8 @@ const getData = async () => {
   );
 
   const data = await res.json();
-  console.log(data.current);
+  console.log(data.daily);
+  //current
   weatherData.current = {
     code: data.current.weather_code,
     temperature: data.current.temperature_2m,
@@ -16,7 +20,22 @@ const getData = async () => {
     wind: data.current.wind_speed_10m,
     ppt: data.current.precipitation,
   };
+  //daily
+  const { time, temperature_2m_min, temperature_2m_max, weather_code } =
+    data.daily;
+
+  weatherData.daily = time.map((dateStr, index) => {
+    const dayIndex = new Date(dateStr).getDay(); // 0–6
+    return {
+      day: days[dayIndex],
+      min: temperature_2m_min[index],
+      max: temperature_2m_max[index],
+      code: weather_code[index],
+    };
+  });
+
   setMainData();
+  setDailyData();
 };
 const setWeatherIcon = (code) => {
   if (code === 0) return "./assets/images/icon-sunny.webp";
@@ -55,5 +74,20 @@ const setMainData = () => {
   humidity.innerHTML = `${weatherData.current.humidity} %`;
   apparent.innerHTML = `${weatherData.current.apparent} `;
   wind.innerHTML = `${weatherData.current.wind} km/h`;
+};
+const setDailyData = () => {
+  Array.from(document.querySelectorAll(".daily-card")).forEach((card, i) => {
+    const data = weatherData.daily[i];
+
+    const day = card.querySelector(".day");
+    const icon = card.querySelector(".icon>img");
+    const max = card.querySelector(".max");
+    const min = card.querySelector(".min");
+
+    day.innerHTML = data.day;
+    icon.src = setWeatherIcon(data.code);
+    min.innerHTML = data.min;
+    max.innerHTML = data.max;
+  });
 };
 getData();
