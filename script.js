@@ -1,16 +1,17 @@
 const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-
+const coords = ["28.7041", "77.1025"];
 const weatherData = {
   current: {},
   daily: [],
+  hourly: [],
 };
 const getData = async () => {
   const res = await fetch(
-    "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation"
+    `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation&timezone=auto`
   );
 
   const data = await res.json();
-  console.log(data.daily);
+  console.log(data);
   //current
   weatherData.current = {
     code: data.current.weather_code,
@@ -26,6 +27,8 @@ const getData = async () => {
 
   weatherData.daily = time.map((dateStr, index) => {
     const dayIndex = new Date(dateStr).getDay(); // 0–6
+    // console.log(new Date(dateStr));
+    // console.log(dateStr);
     return {
       day: days[dayIndex],
       min: temperature_2m_min[index],
@@ -33,9 +36,26 @@ const getData = async () => {
       code: weather_code[index],
     };
   });
-
+  //hourly
+  weatherData.hourly = data.hourly.time
+    .map((timeStr, index) => ({
+      time: timeStr,
+      temp: data.hourly.temperature_2m[index],
+      code: data.hourly.weather_code[index],
+    }))
+    .filter((item) => new Date(item.time) > new Date())
+    .slice(0, 8)
+    .map((item) => ({
+      hour: new Date(item.time).toLocaleString("en-US", {
+        hour: "numeric",
+        hour12: true,
+      }),
+      temp: item.temp,
+      code: item.code,
+    }));
   setMainData();
   setDailyData();
+  setHourlyData();
 };
 const setWeatherIcon = (code) => {
   if (code === 0) return "./assets/images/icon-sunny.webp";
@@ -88,6 +108,19 @@ const setDailyData = () => {
     icon.src = setWeatherIcon(data.code);
     min.innerHTML = data.min;
     max.innerHTML = data.max;
+  });
+};
+const setHourlyData = () => {
+  Array.from(document.querySelectorAll(".hour-card")).forEach((card, i) => {
+    const data = weatherData.hourly[i];
+    console.log(data, card);
+    const hour = card.querySelector(".hour>span");
+    const icon = card.querySelector(".hour>img");
+    const temp = card.querySelector(".hour-temp");
+
+    icon.src = setWeatherIcon(data.code);
+    hour.innerHTML = data.hour;
+    temp.innerHTML = data.temp;
   });
 };
 getData();
