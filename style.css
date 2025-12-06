@@ -44,6 +44,49 @@ main > h1 {
   font-size: 3rem;
   margin-bottom: 2rem;
 }
+#search {
+  position: relative;
+  display: inline-block;
+}
+#search > button {
+  padding: 15px 25px;
+  background-color: var(--blue-500);
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#search > button:hover {
+  background-color: var(--blue-700);
+}
+#search > input {
+  padding: 15px 25px;
+  background-color: var(--neutral-800);
+  margin-right: 20px;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  outline: none;
+  width: 400px;
+}
+#search > input::placeholder {
+  color: var(--neutral-0);
+  padding-left: 40px;
+}
+#search > img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  height: 40%;
+  left: 25px;
+  aspect-ratio: 1/1;
+  pointer-events: none;
+}
+#search:has(input:not(:placeholder-shown)) > img {
+  display: none;
+}
 #container {
   display: grid;
   grid-template-columns: 70% 30%;
