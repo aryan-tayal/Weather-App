@@ -5,6 +5,14 @@ const weatherData = {
   daily: [],
   hourly: [],
 };
+
+const options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
 const getData = async () => {
   const res = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation&timezone=auto`
@@ -87,7 +95,9 @@ const setMainData = () => {
   const humidity = document.querySelector("#humidity+span");
   const apparent = document.querySelector("#apparent+span");
   const ppt = document.querySelector("#ppt+span");
+  const time = document.querySelector("#time");
 
+  time.innerHTML = new Date().toLocaleDateString("en-US", options);
   icon.src = setWeatherIcon(weatherData.current.code);
   temp.innerHTML = weatherData.current.temperature;
   ppt.innerHTML = `${weatherData.current.ppt} mm`;
@@ -113,7 +123,6 @@ const setDailyData = () => {
 const setHourlyData = () => {
   Array.from(document.querySelectorAll(".hour-card")).forEach((card, i) => {
     const data = weatherData.hourly[i];
-    console.log(data, card);
     const hour = card.querySelector(".hour>span");
     const icon = card.querySelector(".hour>img");
     const temp = card.querySelector(".hour-temp");
