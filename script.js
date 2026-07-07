@@ -12,6 +12,17 @@ const options = {
   month: "long",
   day: "numeric",
 };
+const unitConvert = {
+  temp: { use: true, convert: (val) => val * 1.8 + 32 },
+  speed: {
+    use: true,
+    convert: (val) => (val * 0.6213712).toFixed(2),
+  },
+  height: {
+    use: true,
+    convert: (val) => (val * 0.03937008).toFixed(2),
+  },
+};
 
 const getData = async () => {
   const res = await fetch(
@@ -22,11 +33,19 @@ const getData = async () => {
   //current
   weatherData.current = {
     code: data.current.weather_code,
-    temperature: data.current.temperature_2m,
-    humidity: data.current.relative_humidity_2m,
-    apparent: data.current.apparent_temperature,
-    wind: data.current.wind_speed_10m,
-    ppt: data.current.precipitation,
+    temperature: unitConvert.temp.use
+      ? `${unitConvert.temp.convert(data.current.temperature_2m)} &#176;F`
+      : `${data.current.temperature_2m} &#176;C`,
+    humidity: `${data.current.relative_humidity_2m}%`,
+    apparent: unitConvert.temp.use
+      ? `${unitConvert.temp.convert(data.current.apparent_temperature)} &#176;F`
+      : `${data.current.apparent_temperature} &#176;C`,
+    wind: unitConvert.speed.use
+      ? `${unitConvert.speed.convert(data.current.wind_speed_10m)} km/h`
+      : `${data.current.wind_speed_10m} mph`,
+    ppt: unitConvert.height.use
+      ? `${unitConvert.height.convert(data.current.precipitation)} in`
+      : `${data.current.precipitation} mm`,
   };
   //daily
   const { time, temperature_2m_min, temperature_2m_max, weather_code } =
@@ -99,10 +118,10 @@ const setMainData = () => {
   time.innerHTML = new Date().toLocaleDateString("en-US", options);
   icon.src = setWeatherIcon(weatherData.current.code);
   temp.innerHTML = weatherData.current.temperature;
-  ppt.innerHTML = `${weatherData.current.ppt} mm`;
-  humidity.innerHTML = `${weatherData.current.humidity} %`;
-  apparent.innerHTML = `${weatherData.current.apparent} `;
-  wind.innerHTML = `${weatherData.current.wind} km/h`;
+  ppt.innerHTML = weatherData.current.ppt;
+  humidity.innerHTML = weatherData.current.humidity;
+  apparent.innerHTML = weatherData.current.apparent;
+  wind.innerHTML = weatherData.current.wind;
 };
 const setDailyData = () => {
   Array.from(document.querySelectorAll(".daily-card")).forEach((card, i) => {
