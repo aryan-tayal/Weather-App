@@ -32,6 +32,7 @@ nav {
   padding: 2rem 5rem;
   top: 0;
   left: 0;
+  z-index: 5;
   background-color: var(--neutral-900);
 }
 main {
@@ -299,4 +300,10 @@ aside {
 }
 #day > .dropdown-options {
   width: 100%;
+}
+#day {
+  z-index: 1;
+}
+#units {
+  z-index: 5;
 }

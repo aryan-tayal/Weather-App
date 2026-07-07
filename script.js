@@ -5,7 +5,7 @@ const weatherData = {
   daily: [],
   hourly: [],
 };
-
+let locationName = "New Delhi, India";
 const options = {
   weekday: "long",
   year: "numeric",
@@ -86,6 +86,7 @@ const setWeatherIcon = (code) => {
 };
 
 const setMainData = () => {
+  const location = document.querySelector("#location");
   const icon = document.querySelector("#currentTemp>img");
   const temp = document.querySelector("#currentTemp>h2");
   const wind = document.querySelector("#wind+span");
@@ -94,6 +95,7 @@ const setMainData = () => {
   const ppt = document.querySelector("#ppt+span");
   const time = document.querySelector("#time");
 
+  location.innerText = locationName;
   time.innerHTML = new Date().toLocaleDateString("en-US", options);
   icon.src = setWeatherIcon(weatherData.current.code);
   temp.innerHTML = weatherData.current.temperature;
@@ -141,9 +143,17 @@ const getLocation = async (e) => {
     const data = await res.json();
     console.log(data.results[0]);
     coords = [data.results[0].latitude, data.results[0].longitude];
+    locationName = `${data.results[0].admin1}, ${data.results[0].country}`;
   }
   getData();
 };
 
 const searchForm = document.querySelector("#search");
 searchForm.addEventListener("submit", getLocation);
+
+// Dropdowns
+document.querySelectorAll(".dropdown").forEach((d) => {
+  d.querySelector(".dropdown-title").addEventListener("click", () => {
+    d.classList.toggle("active");
+  });
+});
