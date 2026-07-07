@@ -55,8 +55,16 @@ const getData = async () => {
     const dayIndex = new Date(dateStr).getDay();
     return {
       day: days[dayIndex],
-      min: temperature_2m_min[index],
-      max: temperature_2m_max[index],
+      min: unitConvert.temp.use
+        ? parseFloat(
+            unitConvert.temp.convert(temperature_2m_min[index]),
+          ).toFixed(1)
+        : temperature_2m_min[index],
+      max: unitConvert.temp.use
+        ? parseFloat(
+            unitConvert.temp.convert(temperature_2m_max[index]),
+          ).toFixed(1)
+        : temperature_2m_max[index],
       code: weather_code[index],
     };
   });
