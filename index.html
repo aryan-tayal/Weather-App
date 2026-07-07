@@ -17,16 +17,39 @@
   <body>
     <nav>
       <img src="assets/images/logo.svg" alt="Weather Now Logo" id="brand" />
-      <select id="units" name="unitSelected" class="dropdown">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-      </select>
+      <div class="dropdown active">
+        <div class="dropdown-title">
+          <img src="./assets/images/icon-units.svg" alt="Settings Icon" />
+          <span>Units</span>
+          <img src="./assets/images/icon-dropdown.svg" alt="Dropdown Icon" />
+        </div>
+        <div class="dropdown-options">
+          <div class="dropdown-list">
+            <div class="dropdown-option">Switch to Imperial</div>
+          </div>
+          <div class="dropdown-list">
+            <h6 class="dropdown-list-header">Temperature</h6>
+            <div class="dropdown-option active">Celsius (&deg;C)</div>
+            <div class="dropdown-option">Farheniet (&deg;F)</div>
+          </div>
+          <div class="dropdown-list">
+            <h6 class="dropdown-list-header">Wind Speed</h6>
+            <div class="dropdown-option active">km/h</div>
+            <div class="dropdown-option">mph</div>
+          </div>
+          <div class="dropdown-list">
+            <h6 class="dropdown-list-header">Precipitation</h6>
+            <div class="dropdown-option active">Milimeters (mm)</div>
+            <div class="dropdown-option">Inches (in)</div>
+          </div>
+        </div>
+      </div>
     </nav>
     <main>
       <h1>How's the sky looking today?</h1>
-      <form action="" id="search">
-        <input type="text" placeholder="Search for a place.." /><button>
+      <form id="search">
+        <input type="text" id="searchInput" placeholder="Search for a place.." />
+        <button>
           Search
         </button>
         <img src="./assets/images/icon-search.svg" alt="Search Icon" />
@@ -132,11 +155,23 @@
       <aside>
         <div id="header">
           <h4>Hourly Forecast</h4>
-          <select id="day" name="daySelected" class="dropdown">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-          </select>
+          <div class="dropdown active" id="day">
+            <div class="dropdown-title">
+              <span>Tuesday</span
+              ><img
+                src="./assets/images/icon-dropdown.svg"
+                alt="Dropdown Icon"
+              />
+            </div>
+            <div class="dropdown-options">
+              <div class="dropdown-option">Wednesday</div>
+              <div class="dropdown-option">Thursday</div>
+              <div class="dropdown-option">Friday</div>
+              <div class="dropdown-option">Saturday</div>
+              <div class="dropdown-option">Sunday</div>
+              <div class="dropdown-option">Monday</div>
+            </div>
+          </div>
         </div>
         <div>
           <div class="card hour-card">

@@ -1,5 +1,5 @@
 const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-const coords = ["28.7041", "77.1025"];
+let coords = ["28.7041", "77.1025"];
 const weatherData = {
   current: {},
   daily: [],
@@ -15,11 +15,10 @@ const options = {
 
 const getData = async () => {
   const res = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation&timezone=auto`
+    `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation&timezone=auto`,
   );
 
   const data = await res.json();
-  console.log(data);
   //current
   weatherData.current = {
     code: data.current.weather_code,
@@ -34,9 +33,7 @@ const getData = async () => {
     data.daily;
 
   weatherData.daily = time.map((dateStr, index) => {
-    const dayIndex = new Date(dateStr).getDay(); // 0–6
-    // console.log(new Date(dateStr));
-    // console.log(dateStr);
+    const dayIndex = new Date(dateStr).getDay();
     return {
       day: days[dayIndex],
       min: temperature_2m_min[index],
@@ -133,3 +130,20 @@ const setHourlyData = () => {
   });
 };
 getData();
+
+const getLocation = async (e) => {
+  e.preventDefault();
+  const res = await fetch(
+    `https://geocoding-api.open-meteo.com/v1/search?name=${e.target.querySelector("#searchInput").value}&count=1&language=en&format=json
+`,
+  );
+  if (res.ok) {
+    const data = await res.json();
+    console.log(data.results[0]);
+    coords = [data.results[0].latitude, data.results[0].longitude];
+  }
+  getData();
+};
+
+const searchForm = document.querySelector("#search");
+searchForm.addEventListener("submit", getLocation);
