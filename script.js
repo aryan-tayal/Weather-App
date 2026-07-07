@@ -13,7 +13,7 @@ const options = {
   day: "numeric",
 };
 const unitConvert = {
-  temp: { use: true, convert: (val) => val * 1.8 + 32 },
+  temp: { use: true, convert: (val) => (val * 1.8 + 32).toFixed(2) },
   speed: {
     use: true,
     convert: (val) => (val * 0.6213712).toFixed(2),
@@ -64,7 +64,9 @@ const getData = async () => {
   weatherData.hourly = data.hourly.time
     .map((timeStr, index) => ({
       time: timeStr,
-      temp: data.hourly.temperature_2m[index],
+      temp: unitConvert.temp.use
+        ? `${unitConvert.temp.convert(data.hourly.temperature_2m[index])} &#176;F`
+        : `${data.hourly.temperature_2m[index]} &#176;C`,
       code: data.hourly.weather_code[index],
     }))
     .filter((item) => new Date(item.time) > new Date())
