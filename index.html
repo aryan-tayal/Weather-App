@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -23,35 +23,74 @@
           <span>Units</span>
           <img src="./assets/images/icon-dropdown.svg" alt="Dropdown Icon" />
         </div>
-        <div class="dropdown-options">
+        <form id="unitsForm" class="dropdown-options">
           <div class="dropdown-list">
-            <div class="dropdown-option">Switch to Imperial</div>
+            <button type="button" id="toggleUnits" class="dropdown-option">
+              Switch to Imperial
+            </button>
           </div>
           <div class="dropdown-list">
-            <h6 class="dropdown-list-header">Temperature</h6>
-            <div class="dropdown-option active">Celsius (&deg;C)</div>
-            <div class="dropdown-option">Farheniet (&deg;F)</div>
+            <div class="dropdown-list-header">Temperature</div>
+            <label class="dropdown-option active">
+              <input
+                type="radio"
+                name="temperature"
+                value="metric"
+                checked
+                hidden
+              />
+              Celsius (&deg;C)
+            </label>
+            <label class="dropdown-option">
+              <input type="radio" name="temperature" value="imperial" hidden />
+              Fahrenheit (&deg;F)
+            </label>
           </div>
           <div class="dropdown-list">
-            <h6 class="dropdown-list-header">Wind Speed</h6>
-            <div class="dropdown-option active">km/h</div>
-            <div class="dropdown-option">mph</div>
+            <div class="dropdown-list-header">Wind Speed</div>
+            <label class="dropdown-option active">
+              <input type="radio" name="wind" value="metric" checked hidden />
+              km/h
+            </label>
+            <label class="dropdown-option">
+              <input type="radio" name="wind" value="imperial" hidden />
+              mph
+            </label>
           </div>
           <div class="dropdown-list">
-            <h6 class="dropdown-list-header">Precipitation</h6>
-            <div class="dropdown-option active">Milimeters (mm)</div>
-            <div class="dropdown-option">Inches (in)</div>
+            <div class="dropdown-list-header">Precipitation</div>
+            <label class="dropdown-option active">
+              <input
+                type="radio"
+                name="precipitation"
+                value="metric"
+                checked
+                hidden
+              />
+              Millimeters (mm)
+            </label>
+            <label class="dropdown-option">
+              <input
+                type="radio"
+                name="precipitation"
+                value="imperial"
+                hidden
+              />
+              Inches (in)
+            </label>
           </div>
-        </div>
+        </form>
       </div>
     </nav>
     <main>
       <h1>How's the sky looking today?</h1>
       <form id="search">
-        <input type="text" id="searchInput" placeholder="Search for a place.." />
-        <button>
-          Search
-        </button>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search for a place.."
+        />
+        <button>Search</button>
         <img src="./assets/images/icon-search.svg" alt="Search Icon" />
       </form>
     </main>
@@ -62,7 +101,7 @@
           <span id="time">Tuesday, Nov 28, 2025</span>
         </div>
         <div id="currentTemp">
-          <img src="/assets/images/icon-sunny.webp"/ alt="Weather Icon">
+          <img src="/assets/images/icon-sunny.webp" alt="Weather Icon" />
           <h2>30</h2>
         </div>
       </section>

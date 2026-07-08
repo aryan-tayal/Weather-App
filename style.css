@@ -265,12 +265,16 @@ aside {
   display: block;
 }
 .dropdown-option {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   font-size: 1rem;
   cursor: pointer;
   background-color: var(--neutral-700);
   border-radius: 1rem;
   padding: 10px;
   transition: background-color 0.3s;
+  user-select: none;
 }
 .dropdown-option:hover {
   background-color: var(--neutral-600);
@@ -279,6 +283,7 @@ aside {
   color: var(--neutral-300);
   padding-left: 10px;
   padding-top: 10px;
+  margin-bottom: 10px;
 }
 .dropdown-list {
   border-top: 1px solid var(--neutral-300);
@@ -293,6 +298,24 @@ aside {
 }
 .dropdown-option.active::after {
   content: url("./assets/images/icon-checkmark.svg");
+}
+.dropdown-option input {
+  display: none;
+}
+#toggleUnits {
+  all: unset;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: var(--neutral-700);
+  border-radius: 1rem;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+#toggleUnits:hover {
+  background-color: var(--neutral-600);
 }
 #day > .dropdown-title {
   background-color: var(--neutral-600);

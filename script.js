@@ -6,6 +6,7 @@ const weatherData = {
   hourly: [],
 };
 let locationName = "New Delhi, India";
+let apiData;
 const options = {
   weekday: "long",
   year: "numeric",
@@ -13,13 +14,13 @@ const options = {
   day: "numeric",
 };
 const unitConvert = {
-  temp: { use: true, convert: (val) => (val * 1.8 + 32).toFixed(2) },
+  temp: { use: false, convert: (val) => (val * 1.8 + 32).toFixed(2) },
   speed: {
-    use: true,
+    use: false,
     convert: (val) => (val * 0.6213712).toFixed(2),
   },
   height: {
-    use: true,
+    use: false,
     convert: (val) => (val * 0.03937008).toFixed(2),
   },
 };
@@ -28,9 +29,12 @@ const getData = async () => {
   const res = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation&timezone=auto`,
   );
-
   const data = await res.json();
-  //current
+  return data;
+};
+const setData = async (useApi) => {
+  const data = useApi || !apiData ? await getData() : apiData;
+  apiData = data;
   weatherData.current = {
     code: data.current.weather_code,
     temperature: unitConvert.temp.use
@@ -47,6 +51,7 @@ const getData = async () => {
       ? `${unitConvert.height.convert(data.current.precipitation)} in`
       : `${data.current.precipitation} mm`,
   };
+
   //daily
   const { time, temperature_2m_min, temperature_2m_max, weather_code } =
     data.daily;
@@ -160,7 +165,7 @@ const setHourlyData = () => {
     temp.innerHTML = data.temp;
   });
 };
-getData();
+setData(true);
 
 const getLocation = async (e) => {
   e.preventDefault();
@@ -170,19 +175,70 @@ const getLocation = async (e) => {
   );
   if (res.ok) {
     const data = await res.json();
-    console.log(data.results[0]);
     coords = [data.results[0].latitude, data.results[0].longitude];
     locationName = `${data.results[0].admin1}, ${data.results[0].country}`;
   }
-  getData();
+  setData(true);
 };
 
 const searchForm = document.querySelector("#search");
 searchForm.addEventListener("submit", getLocation);
 
-// Dropdowns
+// Dropdown Open and Close
 document.querySelectorAll(".dropdown").forEach((d) => {
   d.querySelector(".dropdown-title").addEventListener("click", () => {
     d.classList.toggle("active");
   });
 });
+
+// Unit Dropdown
+const form = document.getElementById("unitsForm");
+const toggleBtn = document.getElementById("toggleUnits");
+
+function updateActiveClasses(isOnChange = false) {
+  form.querySelectorAll(".dropdown-list").forEach((list) => {
+    list.querySelectorAll(".dropdown-option").forEach((option) => {
+      const input = option.querySelector("input");
+      if (!input) return;
+      option.classList.toggle("active", input.checked);
+    });
+  });
+  isOnChange && updateToggleButton();
+}
+
+// Changes the button text based on current selection
+function updateToggleButton() {
+  const allMetric = [...form.querySelectorAll('input[value="metric"]')].every(
+    (input) => input.checked,
+  );
+  if (!allMetric) {
+    unitConvert.temp.use = true;
+    unitConvert.speed.use = true;
+    unitConvert.height.use = true;
+  } else {
+    unitConvert.temp.use = false;
+    unitConvert.speed.use = false;
+    unitConvert.height.use = false;
+  }
+  setData(false);
+  toggleBtn.textContent = allMetric ? "Switch to Imperial" : "Switch to Metric";
+}
+
+// Handle manual radio changes
+form.addEventListener("change", (e) => {
+  if (e.target.type === "radio") {
+    updateActiveClasses(true);
+  }
+});
+
+// Handle "Switch to Imperial/Metric"
+toggleBtn.addEventListener("click", () => {
+  const switchToImperial = toggleBtn.textContent.includes("Imperial");
+  form.querySelectorAll('input[type="radio"]').forEach((input) => {
+    input.checked = input.value === (switchToImperial ? "imperial" : "metric");
+  });
+  updateActiveClasses(true);
+});
+
+// Initial setup
+updateActiveClasses();
