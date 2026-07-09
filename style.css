@@ -208,6 +208,9 @@ aside {
   position: relative;
   overflow: hidden;
 }
+#time {
+  color: var(--neutral-200);
+}
 #weatherMain #location {
   font-size: 1.7rem;
   margin-bottom: 10px;
@@ -449,5 +452,10 @@ body:has(#container.loading) .dropdown-title {
   }
   aside > div:not(#header) {
     grid-template-columns: 1fr;
+  }
+  #weatherMain {
+    display: block;
+    text-align: center;
+    background-image: url("/assets/images/bg-today-small.svg");
   }
 }
