@@ -232,24 +232,6 @@ const updateActiveClasses = (isOnChange = false) => {
   }
 };
 
-// Changes the button text based on current selection
-const updateToggleButton = () => {
-  const allMetric = [...form.querySelectorAll('input[value="metric"]')].every(
-    (input) => input.checked,
-  );
-  if (!allMetric) {
-    unitConvert.temp.use = true;
-    unitConvert.speed.use = true;
-    unitConvert.height.use = true;
-  } else {
-    unitConvert.temp.use = false;
-    unitConvert.speed.use = false;
-    unitConvert.height.use = false;
-  }
-  setData(false);
-  toggleBtn.textContent = allMetric ? "Switch to Imperial" : "Switch to Metric";
-};
-
 // Handle manual radio changes
 form.addEventListener("change", (e) => {
   if (e.target.type === "radio") {
