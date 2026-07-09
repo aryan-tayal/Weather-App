@@ -481,4 +481,13 @@ body:has(#container.loading) .dropdown-title {
   #weatherMain #currentTemp > img {
     margin-right: 15px;
   }
+  nav {
+    padding: 2rem 1rem;
+  }
+  #brand {
+    width: 150px;
+  }
+  #unitsDropdown * {
+    font-size: 0.8rem;
+  }
 }
