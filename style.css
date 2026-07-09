@@ -320,6 +320,7 @@ aside {
 #day > .dropdown-title {
   background-color: var(--neutral-600);
   font-size: 1rem;
+  min-width: 150px;
 }
 #day > .dropdown-options {
   width: 100%;

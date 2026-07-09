@@ -281,16 +281,19 @@ const dayDropdown = document.getElementById("day");
 const dayTitle = dayDropdown.querySelector(".dropdown-title span");
 const dayOptions = dayDropdown.querySelector(".dropdown-options");
 
-let selectedDay = new Date().getDay();
+const today = new Date().getDay();
+let selectedDay = today;
 const renderDays = () => {
   dayTitle.textContent = daysLong[selectedDay];
   dayOptions.innerHTML = "";
-  for (let i = 1; i < 7; i++) {
-    const dayIndex = (selectedDay + i) % 7;
+  for (let i = 0; i < 7; i++) {
+    const dayIndex = (today + i) % 7;
+    if (dayIndex === selectedDay) continue;
     const option = document.createElement("div");
     option.className = "dropdown-option";
     option.textContent = daysLong[dayIndex];
     option.addEventListener("click", () => {
+      dayDropdown.classList.remove("active");
       selectedDay = dayIndex;
       renderDays();
       let diff = selectedDay - new Date().getDay();
@@ -298,7 +301,6 @@ const renderDays = () => {
         diff += 7;
       }
       daysAdd = diff;
-      dayDropdown.classList.remove("active");
       setData();
     });
     dayOptions.appendChild(option);
