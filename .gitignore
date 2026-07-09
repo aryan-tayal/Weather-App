@@ -40,3 +40,7 @@ npm-debug.log*
 Thumbs.db
 
 env.json
+
+assets/design
+README-template.md
+style-guide.md
