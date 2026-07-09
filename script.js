@@ -26,10 +26,13 @@ const unitConvert = {
 };
 let daysAdd = 0;
 const getData = async () => {
+  const container = document.querySelector("#container");
+  container.classList.add("loading");
   const res = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation&timezone=auto`,
   );
   const data = await res.json();
+  container.classList.remove("loading");
   return data;
 };
 const setData = async (useApi) => {
