@@ -45,8 +45,8 @@ const setData = async (useApi) => {
       ? `${unitConvert.temp.convert(data.current.apparent_temperature)} &#176;F`
       : `${data.current.apparent_temperature} &#176;C`,
     wind: unitConvert.speed.use
-      ? `${unitConvert.speed.convert(data.current.wind_speed_10m)} km/h`
-      : `${data.current.wind_speed_10m} mph`,
+      ? `${unitConvert.speed.convert(data.current.wind_speed_10m)} mph`
+      : `${data.current.wind_speed_10m} km/h`,
     ppt: unitConvert.height.use
       ? `${unitConvert.height.convert(data.current.precipitation)} in`
       : `${data.current.precipitation} mm`,
@@ -195,15 +195,31 @@ document.querySelectorAll(".dropdown").forEach((d) => {
 const form = document.getElementById("unitsForm");
 const toggleBtn = document.getElementById("toggleUnits");
 
+function updateUnits() {
+  Object.keys(unitConvert).forEach((key) => {
+    const selected = form.querySelector(`input[name="${key}"]:checked`);
+    unitConvert[key].use = selected.value === "imperial";
+  });
+
+  setData(false);
+
+  const allMetric = Object.values(unitConvert).every((unit) => !unit.use);
+  toggleBtn.textContent = allMetric ? "Switch to Imperial" : "Switch to Metric";
+}
+
 function updateActiveClasses(isOnChange = false) {
   form.querySelectorAll(".dropdown-list").forEach((list) => {
     list.querySelectorAll(".dropdown-option").forEach((option) => {
       const input = option.querySelector("input");
       if (!input) return;
+
       option.classList.toggle("active", input.checked);
     });
   });
-  isOnChange && updateToggleButton();
+
+  if (isOnChange) {
+    updateUnits();
+  }
 }
 
 // Changes the button text based on current selection
@@ -234,9 +250,11 @@ form.addEventListener("change", (e) => {
 // Handle "Switch to Imperial/Metric"
 toggleBtn.addEventListener("click", () => {
   const switchToImperial = toggleBtn.textContent.includes("Imperial");
+
   form.querySelectorAll('input[type="radio"]').forEach((input) => {
     input.checked = input.value === (switchToImperial ? "imperial" : "metric");
   });
+
   updateActiveClasses(true);
 });
 
