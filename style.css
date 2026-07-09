@@ -109,12 +109,6 @@ aside {
   flex-direction: column;
   justify-content: space-between;
 }
-#weatherDetails {
-  grid-row: 2/3;
-}
-#dailyForecast {
-  grid-row: 3/4;
-}
 #dailyForecast > div {
   display: grid;
   gap: 1rem;
@@ -439,5 +433,21 @@ body:has(#container.loading) .dropdown-title {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     margin-top: 1rem;
+  }
+}
+@media (max-width: 425px) {
+  body {
+    padding: 2rem 1rem;
+  }
+  #weatherDetails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 1rem;
+  }
+  #dailyForecast > div {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  aside > div:not(#header) {
+    grid-template-columns: 1fr;
   }
 }
