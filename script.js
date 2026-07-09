@@ -14,14 +14,14 @@ const options = {
   day: "numeric",
 };
 const unitConvert = {
-  temp: { use: false, convert: (val) => (val * 1.8 + 32).toFixed(2) },
+  temp: { use: false, convert: (val) => (val * 1.8 + 32).toFixed(1) },
   speed: {
     use: false,
-    convert: (val) => (val * 0.6213712).toFixed(2),
+    convert: (val) => (val * 0.6213712).toFixed(1),
   },
   height: {
     use: false,
-    convert: (val) => (val * 0.03937008).toFixed(2),
+    convert: (val) => (val * 0.03937008).toFixed(1),
   },
 };
 let daysAdd = 0;
@@ -69,14 +69,10 @@ const setData = async (useApi) => {
     return {
       day: days[dayIndex],
       min: unitConvert.temp.use
-        ? parseFloat(
-            unitConvert.temp.convert(temperature_2m_min[index]),
-          ).toFixed(1)
+        ? unitConvert.temp.convert(temperature_2m_min[index])
         : temperature_2m_min[index],
       max: unitConvert.temp.use
-        ? parseFloat(
-            unitConvert.temp.convert(temperature_2m_max[index]),
-          ).toFixed(1)
+        ? unitConvert.temp.convert(temperature_2m_max[index])
         : temperature_2m_max[index],
       code: weather_code[index],
     };
@@ -104,7 +100,6 @@ const setData = async (useApi) => {
       temp: item.temp,
       code: item.code,
     }));
-  console.log(new Date(new Date().getTime() + daysAdd * 24 * 60 * 60 * 1000));
   setMainData();
   setDailyData();
   setHourlyData();
