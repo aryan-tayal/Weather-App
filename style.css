@@ -438,7 +438,7 @@ body:has(#container.loading) .dropdown-title {
     margin-top: 1rem;
   }
 }
-@media (max-width: 425px) {
+@media (max-width: 768px) {
   body {
     padding: 2rem 1rem;
   }
@@ -457,5 +457,28 @@ body:has(#container.loading) .dropdown-title {
     display: block;
     text-align: center;
     background-image: url("/assets/images/bg-today-small.svg");
+  }
+  main {
+    margin: 0;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+  #search {
+    width: 100%;
+  }
+  #search > input {
+    width: 100%;
+    margin: 0;
+  }
+  #search > img {
+    height: 22%;
+    top: 25%;
+  }
+  #search > button {
+    width: 100%;
+    margin-top: 10px;
+  }
+  #weatherMain #currentTemp > img {
+    margin-right: 15px;
   }
 }
