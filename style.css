@@ -201,7 +201,7 @@ aside {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: url("/assets/images/bg-today-large.svg");
+  background-image: url("./assets/images/bg-today-large.svg");
   background-size: cover;
   margin-bottom: 20px;
   padding: 20px;
@@ -456,7 +456,7 @@ body:has(#container.loading) .dropdown-title {
   #weatherMain {
     display: block;
     text-align: center;
-    background-image: url("/assets/images/bg-today-small.svg");
+    background-image: url("./assets/images/bg-today-small.svg");
   }
   main {
     margin: 0;
