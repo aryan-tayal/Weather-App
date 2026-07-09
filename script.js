@@ -25,14 +25,19 @@ const unitConvert = {
   },
 };
 let daysAdd = 0;
-const getData = async () => {
+const load = (isLoading) => {
   const container = document.querySelector("#container");
-  container.classList.add("loading");
+  isLoading
+    ? container.classList.add("loading")
+    : container.classList.remove("loading");
+};
+const getData = async () => {
+  load(true);
   const res = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation&timezone=auto`,
   );
   const data = await res.json();
-  container.classList.remove("loading");
+  load(false);
   return data;
 };
 const setData = async (useApi) => {
@@ -177,6 +182,7 @@ setData(true);
 
 const getLocation = async (e) => {
   e.preventDefault();
+  load(true);
   const res = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${e.target.querySelector("#searchInput").value}&count=1&language=en&format=json
 `,
@@ -185,6 +191,7 @@ const getLocation = async (e) => {
     const data = await res.json();
     coords = [data.results[0].latitude, data.results[0].longitude];
     locationName = `${data.results[0].admin1}, ${data.results[0].country}`;
+    load(false);
   }
   setData(true);
 };
