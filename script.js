@@ -85,7 +85,7 @@ const setData = async (useApi) => {
     .filter(
       (item) =>
         new Date(item.time) >
-        new Date(new Date() + daysAdd * 24 * 60 * 60 * 1000),
+        new Date(new Date().getTime() + daysAdd * 24 * 60 * 60 * 1000),
     )
     .slice(0, 8)
     .map((item) => ({
@@ -96,6 +96,7 @@ const setData = async (useApi) => {
       temp: item.temp,
       code: item.code,
     }));
+  console.log(new Date(new Date().getTime() + daysAdd * 24 * 60 * 60 * 1000));
   setMainData();
   setDailyData();
   setHourlyData();
@@ -292,7 +293,13 @@ const renderDays = () => {
     option.addEventListener("click", () => {
       selectedDay = dayIndex;
       renderDays();
+      let diff = selectedDay - new Date().getDay();
+      if (diff < 0) {
+        diff += 7;
+      }
+      daysAdd = diff;
       dayDropdown.classList.remove("active");
+      setData();
     });
     dayOptions.appendChild(option);
   }
