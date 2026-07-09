@@ -24,7 +24,7 @@ const unitConvert = {
     convert: (val) => (val * 0.03937008).toFixed(2),
   },
 };
-
+let daysAdd = 0;
 const getData = async () => {
   const res = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,wind_speed_10m,relative_humidity_2m,weather_code,precipitation&timezone=auto`,
@@ -82,7 +82,11 @@ const setData = async (useApi) => {
         : `${data.hourly.temperature_2m[index]} &#176;C`,
       code: data.hourly.weather_code[index],
     }))
-    .filter((item) => new Date(item.time) > new Date())
+    .filter(
+      (item) =>
+        new Date(item.time) >
+        new Date(new Date() + daysAdd * 24 * 60 * 60 * 1000),
+    )
     .slice(0, 8)
     .map((item) => ({
       hour: new Date(item.time).toLocaleString("en-US", {
@@ -195,7 +199,7 @@ document.querySelectorAll(".dropdown").forEach((d) => {
 const form = document.getElementById("unitsForm");
 const toggleBtn = document.getElementById("toggleUnits");
 
-function updateUnits() {
+const updateUnits = () => {
   Object.keys(unitConvert).forEach((key) => {
     const selected = form.querySelector(`input[name="${key}"]:checked`);
     unitConvert[key].use = selected.value === "imperial";
@@ -205,9 +209,9 @@ function updateUnits() {
 
   const allMetric = Object.values(unitConvert).every((unit) => !unit.use);
   toggleBtn.textContent = allMetric ? "Switch to Imperial" : "Switch to Metric";
-}
+};
 
-function updateActiveClasses(isOnChange = false) {
+const updateActiveClasses = (isOnChange = false) => {
   form.querySelectorAll(".dropdown-list").forEach((list) => {
     list.querySelectorAll(".dropdown-option").forEach((option) => {
       const input = option.querySelector("input");
@@ -220,10 +224,10 @@ function updateActiveClasses(isOnChange = false) {
   if (isOnChange) {
     updateUnits();
   }
-}
+};
 
 // Changes the button text based on current selection
-function updateToggleButton() {
+const updateToggleButton = () => {
   const allMetric = [...form.querySelectorAll('input[value="metric"]')].every(
     (input) => input.checked,
   );
@@ -238,7 +242,7 @@ function updateToggleButton() {
   }
   setData(false);
   toggleBtn.textContent = allMetric ? "Switch to Imperial" : "Switch to Metric";
-}
+};
 
 // Handle manual radio changes
 form.addEventListener("change", (e) => {
@@ -260,3 +264,38 @@ toggleBtn.addEventListener("click", () => {
 
 // Initial setup
 updateActiveClasses();
+
+// Hourly Dropdown
+const daysLong = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const dayDropdown = document.getElementById("day");
+const dayTitle = dayDropdown.querySelector(".dropdown-title span");
+const dayOptions = dayDropdown.querySelector(".dropdown-options");
+
+let selectedDay = new Date().getDay();
+const renderDays = () => {
+  dayTitle.textContent = daysLong[selectedDay];
+  dayOptions.innerHTML = "";
+  for (let i = 1; i < 7; i++) {
+    const dayIndex = (selectedDay + i) % 7;
+    const option = document.createElement("div");
+    option.className = "dropdown-option";
+    option.textContent = daysLong[dayIndex];
+    option.addEventListener("click", () => {
+      selectedDay = dayIndex;
+      renderDays();
+      dayDropdown.classList.remove("active");
+    });
+    dayOptions.appendChild(option);
+  }
+};
+
+renderDays();
