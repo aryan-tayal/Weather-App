@@ -421,3 +421,23 @@ body:has(#container.loading) .dropdown-title {
     padding: 10px;
   }
 }
+@media (max-width: 1024px) {
+  #container {
+    grid-template-columns: 1fr;
+  }
+  aside {
+    grid-column: 1;
+  }
+  #dailyForecast > div {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .hour-card {
+    margin: 0;
+  }
+  aside > div:not(#header) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
